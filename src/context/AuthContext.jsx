@@ -7,7 +7,8 @@ export const AuthContextProvider = ({ children }) => {
 
     const [auth, setAuth] = useState({
         user: null,
-        token: null
+        token: null,
+        isLoading:true 
     });
         // empty array ,means one first load 
 
@@ -17,7 +18,14 @@ export const AuthContextProvider = ({ children }) => {
         if(user && token) {
             setAuth({
                 user: JSON.parse(user),
-                token
+                token,
+                isLoading:false
+            });
+        }else{
+            setAuth({
+                user: null,
+                token:null,
+                isLoading:false
             });
         }
     } , []);
