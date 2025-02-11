@@ -1,23 +1,32 @@
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import { UserButton } from '@/components/atoms/UserButton/UserButton';
 import { useFetchWorkspace } from '@/hooks/apis/workspaces/useFetchWorkspace';
-import { useEffect } from 'react';
 
 export const Home = () => {
 
-    const {isFetching, workspaces}=useFetchWorkspace();
-    useEffect(()=>{
-        if (isFetching) return;
+    const { isFetching, workspaces } = useFetchWorkspace();
 
-        console.log('ws downloaded' , workspaces);
-        if (workspaces.length===0 || !workspaces){
-            console.log('no ws found , create one');
-            
+    const navigate = useNavigate();
+
+    useEffect(() => {
+
+        if(isFetching) return;
+
+        console.log('Workspaces downloaded is', workspaces);
+
+        if(workspaces.length === 0 || !workspaces) {
+            console.log('No workspaces found, creating one');
+        } else {
+            navigate(`/workspaces/${workspaces[0]._id}`);
         }
-        
-    },[isFetching, workspaces])
+
+    }, [isFetching, workspaces, navigate]);
+
     return (
         <>
-            <h1>Home</h1>
+            <h1>Home</h1> 
             <UserButton />
         </>
     );

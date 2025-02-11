@@ -42,3 +42,21 @@ export const fetchWorkspacesRequest= async ({token})=>{
         throw error.response.data;
     }
 }
+
+
+export const fetchWorkspaceDetailsRequest=async ({workspaceId,token})=>{
+    try {
+        const response=await axios.get(`/workspaces/${workspaceId}`,{
+            headers:{
+                'x-access-token':token
+            }
+        })
+
+        return response?.data;
+    } catch (error) {
+        console.log('Error while fetching workspace details',error);
+
+        throw error.response.data;
+        
+    }
+}
