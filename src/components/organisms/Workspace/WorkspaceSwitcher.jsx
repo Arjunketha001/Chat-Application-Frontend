@@ -3,8 +3,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import { Button } from '@/components/ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
-import { useGetWorkspacesById } from '@/hooks/apis/workspaces/useGetWoekspacesById';
+// import { useGetWorkspacesById } from '@/hooks/apis/workspaces/useGetWorkspacesById';
 import { useFetchWorkspace } from '@/hooks/apis/workspaces/useFetchWorkspace';
+import { useGetWorkspaceById } from '@/hooks/apis/workspaces/useGetWorkspacesById';
 // import { useFetchWorkspace } from '@/hooks/apis/workspaces/useFetchWorkspace';
 // import { useGetWorkspaceById } from '@/hooks/apis/workspaces/useGetWorkspaceById';
 
@@ -14,7 +15,7 @@ export const WorkspaceSwitcher = () => {
 
     const { workspaceId } = useParams();
 
-    const { isFetching, workspace } = useGetWorkspacesById(workspaceId);
+    const { isFetching, workspace } = useGetWorkspaceById(workspaceId);
 
     const { workspaces, isFetching: isFetchingWorkspace } = useFetchWorkspace();
 
@@ -23,7 +24,7 @@ export const WorkspaceSwitcher = () => {
             <DropdownMenuTrigger>
                 <Button
                     className='size-9 relative overflow-hidden bg-[#ABABAD] hover:bg-[#ABABAD]/80 font-semibold text-slate-800 text-xl'
-                > D
+                > 
                     {isFetching ? (<Loader className='size-5 animate-spin' />) : workspace?.name.charAt(0).toUpperCase()}
                 </Button>
             </DropdownMenuTrigger>
