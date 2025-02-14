@@ -17,15 +17,20 @@ export const useConfirm = ({
         });
     }
 
+    // close the confirmation dialog
     const handleClose = () => {
         setPromise(null);
     };
 
+    // resume the logic
     const handleConfirm = () => {
         promise?.resolve(true);
         handleClose();
     };
 
+    // this dialog box is triggerd only when the promise is not null
+    // when promise is not null, when the confirmation function is called
+    // inside the new promise construtor ,we set the promise to resolve state
     const ConfirmDialog = () => {
         return (
             <Dialog open={promise !== null} onOpenChange={handleClose}>
