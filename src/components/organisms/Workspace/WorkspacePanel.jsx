@@ -1,17 +1,24 @@
-import { AlertTriangleIcon, Loader, MessageSquareTextIcon } from 'lucide-react';
+import { AlertTriangleIcon, HashIcon, Loader, MessageSquareTextIcon, SendHorizonalIcon } from 'lucide-react';
 import { useParams } from 'react-router-dom';
 
-import { WorkspacePanelHeader } from '@/components/molecules/Workspace/WorkspacePanelHeader';
-import { useGetWorkspaceById } from '@/hooks/apis/workspaces/useGetWorkspacesById';
 import { SideBarItem } from '@/components/atoms/SideBarItem/SideBarItem';
+import { WorkspacePanelHeader } from '@/components/molecules/Workspace/WorkspacePanelHeader';
+// import { WorkspacePanelSection } from '@/components/molecules/Workspace/WorkspacePanelSection';
+// import { useGetWorkspaceById } from '@/hooks/apis/workspaces/useGetWorkspaceById';
+import { useCreateChannelModal } from '@/hooks/context/useCreateChannelModal';
+import { useGetWorkspaceById } from '@/hooks/apis/workspaces/useGetWorkspacesById';
+import { WorkspacePanelSection } from '@/components/molecules/Workspace/WorkspacePanelSection';
 
 export const WorkspacePanel = () => {
 
     const { workspaceId } = useParams();
 
+    const { setOpenCreateChannelModal } = useCreateChannelModal();
     const { workspace, isFetching, isSuccess } = useGetWorkspaceById(workspaceId);
-    console.log("fetched workspace",workspace);
-    
+
+    console.log("Workspace Data:", workspace);
+
+
     if(isFetching) {
 
         return (
@@ -37,9 +44,9 @@ export const WorkspacePanel = () => {
     return (
         <div
             className="flex flex-col h-full bg-slack-medium"
-        >   
-        
+        >
             <WorkspacePanelHeader workspace={workspace} />
+
             <div
                 className='flex flex-col px-2 mt-3'
             >
@@ -49,7 +56,24 @@ export const WorkspacePanel = () => {
                     id="threads"
                     variant='active'
                 />
+                <SideBarItem 
+                    label="Drafts & Sends"
+                    icon={SendHorizonalIcon}
+                    id="drafts"
+                    variant='default'
+                />
             </div>
+
+            <WorkspacePanelSection
+                label={'Channels'}
+                onIconClick={() => {console.log("Workspace Data:", workspace);setOpenCreateChannelModal(true);}}
+            >
+                {workspace?.channels?.map((channel) => {
+                    console.log("Workspace Data:", workspace);
+
+                    return <SideBarItem key={channel._id} icon={HashIcon} label={channel.name} id={channel._id} />;
+                })}
+            </WorkspacePanelSection>
         </div>
     );
 };
