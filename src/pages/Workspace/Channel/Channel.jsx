@@ -4,21 +4,12 @@ import { useParams } from 'react-router-dom';
 import { ChatInput } from '@/components/molecules/ChatInput/ChatInput';
 import { useGetChannelById } from '@/hooks/apis/channels/useGetChannelById';
 
-/*************  ✨ Codeium Command 🌟  *************/
-/**
- * Page for displaying a channel.
- * 
- * It fetches the channel details and then displays its messages.
- * If the channel is not found, it displays an error message.
- * If the channel is fetching, it displays a loading animation.
- */
 export const Channel = () => {
 
     const { channelId } = useParams();
 
     const { channelDetails, isFetching, isError } = useGetChannelById(channelId);
 
-    // If the channel is fetching, display a loading animation
     if(isFetching) {
         return (
             <div
@@ -29,7 +20,6 @@ export const Channel = () => {
         );
     }
 
-    // If the channel is not found, display an error message
     if(isError) {
         return (
             <div className='h-full flex-1 flex flex-col gap-y-2 items-center justify-center'>
@@ -39,7 +29,6 @@ export const Channel = () => {
         );
     }
 
-    // If the channel is found, display its messages
     return (
         <div className='flex flex-col h-full'>
             <div className='flex-1' />
@@ -47,4 +36,3 @@ export const Channel = () => {
         </div>
     );
 };
-/******  bb464a12-c6b6-47e8-945e-b2c2524ed7b1  *******/
