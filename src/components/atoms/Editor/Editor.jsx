@@ -128,7 +128,7 @@ export const Editor = ({
 
             <p
                 className='p-2 text-[10px] text-mutes-foreground flex justify-end'
-            >
+>
                 <strong>Shift + return</strong> &nbsp; to add a new line
             </p>
         </div>
